@@ -160,19 +160,18 @@
   // Confetti + music on 21 Oct (final day)
   const finalDayIndex = messages.length - 1; // last message
   if (i === finalDayIndex) {
-    // Launch confetti
     launchConfetti();
-
-    // Play song automatically without showing the button
     const song = document.getElementById('birthdaySong');
     song.play().catch(()=>console.log("Autoplay blocked, user interaction needed"));
-      } else if (todayIST > date) {
-        card.classList.add('unlocked');
-        card.appendChild(messageDiv);
-      } else {
-        card.classList.add('locked');
-        card.textContent += " 🔒";
-      }
+  }
+
+} else if (todayIST > date) {
+  card.classList.add('unlocked');
+  card.appendChild(messageDiv);
+} else {
+  card.classList.add('locked');
+  card.textContent += " 🔒";
+}
 
       cardsDiv.appendChild(card);
     });
