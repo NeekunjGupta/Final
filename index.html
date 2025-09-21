@@ -214,56 +214,5 @@ function openCard(idx, article, content, lock){
     document.getElementById('songSection').style.display = "block";
   }
 }
-  </script>  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script><!-- Admin Password Section -->
-<div class="admin" style="position:fixed; top:12px; right:12px; background:#071028; padding:12px 16px; border-radius:12px; border:1px solid rgba(255,255,255,0.2); z-index:9999; display:flex; gap:8px; align-items:center;">
-  <label style="font-size:12px;opacity:0.8">Admin:</label>
-  <input class="adminPass" id="adminPass" placeholder="password" style="width:140px; padding:8px; font-size:14px; border-radius:6px; border:1px solid rgba(255,107,154,0.3); background:transparent; color:#f8f7fb; outline:none;">
-  <button class="btn" id="adminBtn">Reveal</button>
-</div>
-
-<script>
-  function openAllMessages(){
-    document.querySelectorAll('.card').forEach((card, idx)=>{
-      const msgDiv = card.querySelector('.message');
-      if(msgDiv){
-        msgDiv.textContent = messages[idx]; // actual message
-      } else {
-        const newDiv = document.createElement('div');
-        newDiv.className = 'message';
-        newDiv.textContent = messages[idx];
-        card.appendChild(newDiv);
-      }
-      card.classList.remove('locked');
-      card.classList.add('unlocked');
-    });
-  }
-
-  function showSong(){
-    const playBtn = document.getElementById('playButton');
-    if(playBtn) playBtn.style.display = 'block';
-  }
-
-  document.getElementById('adminBtn').addEventListener('click', ()=>{
-    const pass = document.getElementById('adminPass').value.trim().toLowerCase();
-
-    if(pass === 'revealme'){
-      openAllMessages();
-      alert('✅ All messages revealed for testing');
-    } 
-    else if(pass === 'songtest'){
-      showSong();
-      alert('🎵 Song unlocked for testing');
-    }
-    else if(pass === 'alltest'){
-  openAllMessages();
-  // Play song + confetti for testing
-  launchConfetti();
-  const song = document.getElementById('birthdaySong');
-  song.play().catch(()=>console.log("Autoplay blocked in test mode"));
-  alert('💖 All messages + Song + Confetti unlocked for testing');
-} else {
-      alert('❌ Wrong password');
-    }
-  });
-</script></body>
+  </script></body>
 </html>
