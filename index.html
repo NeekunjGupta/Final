@@ -194,5 +194,58 @@
         button.addEventListener('click', () => song.play());
       });
     }
+    <script>
+function playSong(){
+  const audio = document.getElementById('birthdaySong');
+  audio.play();
+}
+
+// Modified openCard: show song on the last day
+function openCard(idx, article, content, lock){
+  article.classList.add('opened','revealAnim');
+  lock.textContent = '💌';
+  const msg = messages[idx] || '(no message)';
+  content.innerHTML = msg;
+  if (idx === messages.length-1) {
+    launchConfetti();
+    document.getElementById('songSection').style.display = "block";
+  }
+}
+
+// Admin passwords
+document.getElementById('adminBtn').addEventListener('click', ()=>{
+  const pass = document.getElementById('adminPass').value.trim();
+
+  if (pass === 'revealme') {
+    // Unlock all messages
+    document.querySelectorAll('.card').forEach(card => {
+      const idx = Number(card.dataset.idx);
+      const content = card.querySelector('.cardContent');
+      const lock = card.querySelector('.lock');
+      openCard(idx, card, content, lock);
+    });
+    alert('✅ All messages revealed for testing');
+  } 
+  else if (pass === 'songtest') {
+    // Unlock only song
+    document.getElementById('songSection').style.display = "block";
+    alert('🎵 Song unlocked for testing');
+  }
+  else if (pass === 'alltest') {
+    // Unlock messages + song together
+    document.querySelectorAll('.card').forEach(card => {
+      const idx = Number(card.dataset.idx);
+      const content = card.querySelector('.cardContent');
+      const lock = card.querySelector('.lock');
+      openCard(idx, card, content, lock);
+    });
+    document.getElementById('songSection').style.display = "block";
+    alert('💖 All messages + Song unlocked for testing');
+  }
+  else {
+    alert('❌ Wrong password');
+  }
+});
+</script>
   </script>  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script></body>
 </html>
