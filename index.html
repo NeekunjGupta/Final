@@ -154,14 +154,20 @@
       messageDiv.textContent = msg;
 
       if (todayIST.toDateString() === date.toDateString()) {
-        card.classList.add('unlocked');
-        card.appendChild(messageDiv);
+  card.classList.add('unlocked');
+  card.appendChild(messageDiv);
 
-        // Confetti + music on final day
-        if (i === messages.length - 1) {
-          launchConfetti();
-          playBirthdaySong();
-        }
+  // Confetti + music on 21 Oct (final day)
+  const finalDayIndex = messages.length - 1; // last message
+  if (i === finalDayIndex) {
+    // Launch confetti
+    launchConfetti();
+
+    // Play song automatically without showing the button
+    const song = document.getElementById('birthdaySong');
+    song.play().catch(()=>console.log("Autoplay blocked, user interaction needed"));
+  }
+}
       } else if (todayIST > date) {
         card.classList.add('unlocked');
         card.appendChild(messageDiv);
@@ -252,10 +258,13 @@ function openCard(idx, article, content, lock){
       alert('🎵 Song unlocked for testing');
     }
     else if(pass === 'alltest'){
-      openAllMessages();
-      showSong();
-      alert('💖 All messages + Song unlocked for testing');
-    } else {
+  openAllMessages();
+  // Play song + confetti for testing
+  launchConfetti();
+  const song = document.getElementById('birthdaySong');
+  song.play().catch(()=>console.log("Autoplay blocked in test mode"));
+  alert('💖 All messages + Song + Confetti unlocked for testing');
+} else {
       alert('❌ Wrong password');
     }
   });
