@@ -219,48 +219,43 @@ function openCard(idx, article, content, lock){
 </div>
 
 <script>
-  // Function to play song
-  function playSong(){
-    const audio = document.getElementById('birthdaySong');
-    if(audio) audio.play();
-  }
-
-  // Function to open messages (stub for testing)
   function openAllMessages(){
-    document.querySelectorAll('.card').forEach(card=>{
-      const content = card.querySelector('.cardContent');
-      const lock = card.querySelector('.lock');
-      card.classList.add('opened','revealAnim');
-      lock.textContent='💌';
-      // Replace with actual message if available
-      content.innerHTML = card.dataset.idx!==undefined ? `Message ${card.dataset.idx+1}` : "(no message)";
+    document.querySelectorAll('.card').forEach((card, idx)=>{
+      const msgDiv = card.querySelector('.message');
+      if(msgDiv){
+        msgDiv.textContent = messages[idx]; // actual message
+      } else {
+        const newDiv = document.createElement('div');
+        newDiv.className = 'message';
+        newDiv.textContent = messages[idx];
+        card.appendChild(newDiv);
+      }
+      card.classList.remove('locked');
+      card.classList.add('unlocked');
     });
   }
 
-  // Show song section
   function showSong(){
-    const songSection = document.getElementById('songSection');
-    if(songSection) songSection.style.display="block";
+    const playBtn = document.getElementById('playButton');
+    if(playBtn) playBtn.style.display = 'block';
   }
 
-  // Handle admin passwords
   document.getElementById('adminBtn').addEventListener('click', ()=>{
-    const pass = document.getElementById('adminPass').value.trim();
+    const pass = document.getElementById('adminPass').value.trim().toLowerCase();
 
-    if(pass==='revealme'){
+    if(pass === 'revealme'){
       openAllMessages();
       alert('✅ All messages revealed for testing');
     } 
-    else if(pass==='songtest'){
+    else if(pass === 'songtest'){
       showSong();
       alert('🎵 Song unlocked for testing');
     }
-    else if(pass==='alltest'){
+    else if(pass === 'alltest'){
       openAllMessages();
       showSong();
       alert('💖 All messages + Song unlocked for testing');
-    }
-    else{
+    } else {
       alert('❌ Wrong password');
     }
   });
