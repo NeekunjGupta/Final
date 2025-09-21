@@ -166,8 +166,6 @@
     // Play song automatically without showing the button
     const song = document.getElementById('birthdaySong');
     song.play().catch(()=>console.log("Autoplay blocked, user interaction needed"));
-  }
-}
       } else if (todayIST > date) {
         card.classList.add('unlocked');
         card.appendChild(messageDiv);
